@@ -1,8 +1,6 @@
 package com.example.xyx.link;
 
-import android.media.Image;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.ActivityChooserView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +28,15 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
     @Override
     public GenerationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_avator, parent, false);
-        return new GenerationViewHolder(view);
+        GenerationViewHolder generationViewHolder = new GenerationViewHolder(view);
+        return generationViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull GenerationViewHolder holder, int position) {
+        holder.avator.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
@@ -42,9 +44,10 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
         return mUsers.size();
     }
 
-    class GenerationViewHolder extends RecyclerView.ViewHolder{
+    class GenerationViewHolder extends RecyclerView.ViewHolder {
         ImageView avator;
         TextView username;
+
         public GenerationViewHolder(View itemView) {
             super(itemView);
             avator = itemView.findViewById(R.id.generation_useravator);

@@ -30,14 +30,14 @@ public class DataUtil {
 
     public void getGroup(CallBack<List<Group>> callBack) {
         List<Group> groups = BmobUser.getCurrentUser(User.class).getGroups();
-        if (groups != null){
+        if (groups != null) {
             callBack.onSuccess(groups);
-        }else {
+        } else {
             callBack.onFu("獲取group失敗");
         }
     }
 
-    public void newGroupAddUser(Group group, User user, int level){
+    public void newGroupAddUser(Group group, User user, int level) {
         UserRelation userRelation = new UserRelation();
 
         List<Attribute> attributes = new ArrayList<>();
@@ -70,13 +70,13 @@ public class DataUtil {
         newGroup.setUserRelations(relations);
 
         List<Group> groups = BmobUser.getCurrentUser(User.class).getGroups();
-        if (groups == null){
+        if (groups == null) {
             groups = new ArrayList<Group>();
         }
         groups.add(newGroup);
         User user = new User();
         user.setGroups(groups);
-        user.update(BmobUser.getCurrentUser().getObjectId(),new UpdateListener() {
+        user.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 Log.d(TAG, "done: " + e.getMessage());
@@ -86,7 +86,74 @@ public class DataUtil {
         newGroup.save();
     }
 
+    public void joinRelation(DataBean dataBean, int level){
+
+    }
+
+    public void newRelation(Group group, User user, String relationName){
+
+    }
+
+    public List<DataBean> getAllRelation(Group group, User user) {
+        List<DataBean> dataBeans = new ArrayList<>();
+        User nowUser = BmobUser.getCurrentUser(User.class);
+        List<UserRelation> userRelations = group.getUserRelations();
+        UserRelation target = null;
+        UserRelation now = null;
+        for (UserRelation userRelation : userRelations) {
+            if (userRelation.getUser().getObjectId().equals(user.getObjectId())) {
+                target = userRelation;
+            } else if (userRelation.getUser().getObjectId().equals(nowUser.getObjectId())){
+                now = userRelation;
+            }
+        }
+        if (target != null && now != null) {
+            List<Attribute> targetUserAttribute = target.getUserAttr();
+            List<Attribute> nowUserAttribute = now.getUserAttr();
+
+            for (Attribute i : targetUserAttribute){
+                for (Attribute j : nowUserAttribute){
+                    if (i.getType().equals(j.getType())){
+                        dataBeans.add(getDataBean(i.getType(), group));
+                    }
+                }
+            }
+        } else {
+            return null;
+        }
+
+        return dataBeans;
+    }
+
     public DataBean getOriginData(Group group) {
+        return getDataBean(0, group);
+//        List<UserRelation> relations = group.getUserRelations();
+//        DataBean dataBean = new DataBean();
+//        int level = 0;
+//        Map<Integer, DataBean.Hor> user = new ArrayMap<>();
+//        for (UserRelation userRelation : relations) {
+//            List<Attribute> attributes = userRelation.getUserAttr();
+//            for (Attribute attribute : attributes) {
+//                if (attribute.getType() == 0) {
+//                    if (user.get(attribute.getLevel()) != null) {
+//                        user.get(attribute.getLevel()).add(userRelation.getUser());
+//                    } else {
+//                        DataBean.Hor temp = new DataBean.Hor();
+//                        temp.add(userRelation.getUser());
+//                        user.put(attribute.getLevel(), temp);
+//                        level++;
+//                    }
+//                    break;
+//                }
+//            }
+//        }
+//        for (int i = 0; i < level; i++) {
+//            dataBean.add(user.get(i));
+//        }
+//        return dataBean;
+    }
+
+    private DataBean getDataBean(int type, Group group){
         List<UserRelation> relations = group.getUserRelations();
         DataBean dataBean = new DataBean();
         int level = 0;
@@ -94,9 +161,10 @@ public class DataUtil {
         for (UserRelation userRelation : relations) {
             List<Attribute> attributes = userRelation.getUserAttr();
             for (Attribute attribute : attributes) {
-                if (attribute.getType() == 0) {
+                if (attribute.getType() == type) {
                     if (user.get(attribute.getLevel()) != null) {
                         user.get(attribute.getLevel()).add(userRelation.getUser());
+                        dataBean.setRelationName(userRelation.getName());
                     } else {
                         DataBean.Hor temp = new DataBean.Hor();
                         temp.add(userRelation.getUser());
@@ -107,9 +175,10 @@ public class DataUtil {
                 }
             }
         }
-        for (int i = 0; i < level; i++){
+        for (int i = 0; i < level; i++) {
             dataBean.add(user.get(i));
         }
+        dataBean.setType(type);
         return dataBean;
     }
 

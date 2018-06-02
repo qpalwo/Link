@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <android.support.v4.widget.CircleImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:src="@mipmap/image2"
         android:id="@+id/generation_useravator"
         android:layout_width="60dp"
         android:layout_height="60dp" />
