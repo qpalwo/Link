@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "onResume: null");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        }else {
+        } else {
             initData();
             initView();
         }
@@ -87,15 +88,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Group> data) {
                 groupList = data;
-                adapter = new ForestAdapter((view, index) -> {});
-                adapter.setGroupList(groupList);
+                adapter = new ForestAdapter((view, index) -> {
+                    Intent intent = new Intent(MainActivity.this, RelationshipActivity.class);
+                    intent.putExtra("group", groupList.get(index));
+                    startActivity(intent);
+                });
                 adapter.setGroupList(groupList);
                 groupRecyclerView.setAdapter(adapter);
-                groupRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+                groupRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
+                        StaggeredGridLayoutManager.VERTICAL));
             }
 
             @Override
-            public void onFu(String msg) {}
+            public void onFu(String msg) {
+            }
         });
     }
 
