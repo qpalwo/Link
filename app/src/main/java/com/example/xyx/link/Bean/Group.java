@@ -8,6 +8,8 @@ public class Group extends BmobObject{
 
     private List<UserRelation> mUserRelations;
 
+    private int groupNumber;
+
     private String name;
 
     public List<UserRelation> getUserRelations() {
@@ -26,6 +28,13 @@ public class Group extends BmobObject{
         this.name = name;
     }
 
+    public int getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(int groupNumber) {
+        this.groupNumber = groupNumber;
+    }
 
 
 }
