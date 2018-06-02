@@ -17,7 +17,7 @@ public class User extends BmobUser {
 
     private String phone;
 
-    private List<Group> mGroups;
+    private List<Group> mGroups = new ArrayList<>();
 
     private int level;
 

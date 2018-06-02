@@ -22,7 +22,7 @@ public class RelationshipActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relation);
         Group group = (Group) getIntent().getExtras().getSerializable("group");
-        if(group != null){
+        if (group != null) {
             mGroupAdapter = new GroupAdapter(this, group);
             mRecyclerView = findViewById(R.id.relation_recyclerview);
             mRecyclerView.setAdapter(mGroupAdapter);

@@ -1,15 +1,12 @@
 package com.example.xyx.link;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.xyx.link.Bean.DataBean;
 import com.example.xyx.link.Bean.Group;
 
 /**
@@ -18,16 +15,8 @@ import com.example.xyx.link.Bean.Group;
  * Github FourfireChen
  */
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
-    DataBean mDataBean;
-    //todo:获得代数
-    DataUtil mDataUtil;
-    Context mContext;
 
-    public GroupAdapter(Context context, Group group) {
-        mDataUtil = new DataUtil(context);
-        mDataBean = mDataUtil.getOriginData(group);
-        mContext = context;
-    }
+    //todo:获得代数
 
     @NonNull
     @Override
@@ -38,28 +27,20 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        if (position == 0) {
+        if(position == 0){
             holder.lineTop.setVisibility(View.INVISIBLE);
-        } else if (position == mDataBean.size()) {
-            holder.lineBottom.setVisibility(View.INVISIBLE);
         }
-        holder.mGenerationAdapter = new GenerationAdapter(mDataBean.get(position), mContext);
-        holder.mRecyclerView.setAdapter(holder.mGenerationAdapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.mRecyclerView.setLayoutManager(linearLayoutManager);
+
     }
 
     @Override
     public int getItemCount() {
-        return mDataBean.size();
+        return 0;
     }
 
-    class GroupViewHolder extends RecyclerView.ViewHolder {
+    class GroupViewHolder extends RecyclerView.ViewHolder{
         ImageView lineTop, lineBottom, point;
         RecyclerView mRecyclerView;
-        GenerationAdapter mGenerationAdapter;
-
         public GroupViewHolder(View itemView) {
             super(itemView);
             lineBottom = itemView.findViewById(R.id.item_line_bottom);

@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:layout_centerHorizontal="true">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:src="@mipmap/image1" />
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_toEndOf="@+id/image1"
+                android:src="@mipmap/image2" />
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/image2"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/image1"
+                android:src="@mipmap/image3" />
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/image3"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/image1"
+                android:src="@mipmap/image4" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="unique"
+            android:textColor="@color/colorTextLight"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/member_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="32dp"
+            android:text="共100人"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="16sp" />
+    </LinearLayout>
 </android.support.v7.widget.CardView>
