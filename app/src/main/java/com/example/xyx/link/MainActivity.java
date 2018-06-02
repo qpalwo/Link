@@ -27,6 +27,8 @@ import cn.bmob.v3.Bmob;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private List<Group> groupList = new ArrayList<>();
+    private DataUtil dataUtil;
+    private ForestAdapter adapter;
 
     @BindView(R.id.avatar_toolbar)
     RoundedImageView avatarToolbar;
@@ -50,12 +52,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        for (int i = 0; i < 5; i++) {
-            Group group = new Group();
-            group.setGroupNumber(10 * i);
-            group.setName("unique studio");
-            groupList.add(group);
-        }
+        dataUtil = new DataUtil(this);
+        dataUtil.getGroup(new CallBack<List<Group>>() {
+            @Override
+            public void onSuccess(List<Group> data) {
+                groupList = data;
+                adapter.setGroupList(groupList);
+            }
+
+            @Override
+            public void onFu(String msg) {
+
+            }
+        });
     }
 
     private void initView() {
@@ -74,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-        ForestAdapter adapter = new ForestAdapter((view, index) -> {
+        adapter = new ForestAdapter((view, index) -> {
 
         });
         adapter.setGroupList(groupList);

@@ -53,6 +53,7 @@ public class ForestAdapter extends RecyclerView.Adapter<ForestAdapter.ViewHolder
             groupList = new ArrayList<>();
         }
         this.groupList = groupList;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
