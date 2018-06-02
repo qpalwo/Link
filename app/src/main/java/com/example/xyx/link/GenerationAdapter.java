@@ -19,9 +19,11 @@ import java.util.ArrayList;
  */
 public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.GenerationViewHolder> {
     ArrayList<User> mUsers = new ArrayList<>();
+    AvatorClickListener mOnClickListener;
 
-    public GenerationAdapter(ArrayList<User> users) {
+    public GenerationAdapter(ArrayList<User> users, AvatorClickListener clickListener) {
         mUsers = users;
+        mOnClickListener = clickListener;
     }
 
     @NonNull
@@ -35,6 +37,7 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
     @Override
     public void onBindViewHolder(@NonNull GenerationViewHolder holder, int position) {
         holder.avator.setOnClickListener(v -> {
+            mOnClickListener.click(v, position);
 
         });
     }
@@ -53,5 +56,12 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
             avator = itemView.findViewById(R.id.generation_useravator);
             username = itemView.findViewById(R.id.generation_username);
         }
+    }
+
+    abstract static class AvatorClickListener implements View.OnClickListener {
+
+        abstract void click(View v, int position);
+        @Override
+        public void onClick(View v) {}
     }
 }
