@@ -2,21 +2,22 @@ package com.example.xyx.link;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.util.Log;
 
+import com.example.xyx.link.Bean.User;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
         }
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -50,10 +53,24 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //登录逻辑
+        User user = BmobUser.getCurrentUser(User.class);
+        if (user == null) {
+            Log.e(TAG, "onResume: null");
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.avatar_toolbar)
     public void onViewClicked() {
         drawerLayout.openDrawer(GravityCompat.START);
     }
+
 }

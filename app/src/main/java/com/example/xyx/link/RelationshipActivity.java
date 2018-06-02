@@ -3,6 +3,7 @@ package com.example.xyx.link;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.xyx.link.Bean.Group;
@@ -21,6 +22,11 @@ public class RelationshipActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relation);
         Group group = (Group) getIntent().getExtras().getSerializable("group");
-        mGroupAdapter = new GroupAdapter(this, group);
+        if(group != null){
+            mGroupAdapter = new GroupAdapter(this, group);
+            mRecyclerView = findViewById(R.id.relation_recyclerview);
+            mRecyclerView.setAdapter(mGroupAdapter);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
     }
 }

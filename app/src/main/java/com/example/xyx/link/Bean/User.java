@@ -1,5 +1,6 @@
 package com.example.xyx.link.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -19,6 +20,10 @@ public class User extends BmobUser {
     private List<Group> mGroups;
 
     private int level;
+
+    private String address;
+
+    private int age;
 
     public String getName() {
         return name;
@@ -76,6 +81,19 @@ public class User extends BmobUser {
         this.level = level;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
