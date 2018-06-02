@@ -1,5 +1,6 @@
 package com.example.xyx.link.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
@@ -16,7 +17,7 @@ public class User extends BmobUser {
 
     private String phone;
 
-    private List<Group> mGroups;
+    private List<Group> mGroups = new ArrayList<>();
 
     private int level;
 
