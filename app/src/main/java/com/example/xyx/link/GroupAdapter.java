@@ -2,9 +2,12 @@ package com.example.xyx.link;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.xyx.link.Bean.Group;
 
 /**
  * Created by 陈钊燚 on 2018/6/2.
@@ -13,15 +16,20 @@ import android.widget.ImageView;
  */
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
 
+    //todo:获得代数
 
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.generation_item, parent, false);
+        return new GroupViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
+        if(position == 0){
+            holder.lineTop.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -31,10 +39,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     }
 
     class GroupViewHolder extends RecyclerView.ViewHolder{
-        ImageView lineTop, lineBottom;
-
+        ImageView lineTop, lineBottom, point;
+        RecyclerView mRecyclerView;
         public GroupViewHolder(View itemView) {
             super(itemView);
+            lineBottom = itemView.findViewById(R.id.item_line_bottom);
+            lineTop = itemView.findViewById(R.id.item_line_top);
+            point = itemView.findViewById(R.id.generation_point);
+            mRecyclerView = itemView.findViewById(R.id.generation_list);
         }
     }
 }
