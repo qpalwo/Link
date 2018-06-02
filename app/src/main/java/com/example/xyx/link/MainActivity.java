@@ -6,14 +6,20 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.xyx.link.Bean.Group;
 import com.example.xyx.link.Bean.User;
@@ -112,7 +118,28 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onTailItemClicked(View view) {
-
+                        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                        final View dialogView = LayoutInflater.from(MainActivity.this)
+                                .inflate(R.layout.create_dialog, null);
+                        ImageView back = dialogView.findViewById(R.id.back_dialog);
+                        Button finish = dialogView.findViewById(R.id.finish);
+                        EditText nameEdit = dialogView.findViewById(R.id.name_edit);
+                        alert.setView(dialogView);
+                        AlertDialog dialog = alert.create();
+                        back.setOnClickListener(v -> {
+                            dialog.dismiss();
+                        });
+                        finish.setOnClickListener(v -> {
+                            if (TextUtils.isEmpty(nameEdit.getText().toString())) {
+                                Toast.makeText(MainActivity.this, "name can't be null", Toast
+                                        .LENGTH_SHORT).show();
+                                return;
+                            }
+                            String name = nameEdit.getText().toString();
+                            dataUtil.newGroup(name,name);
+                            dialog.dismiss();
+                        });
+                        dialog.show();
                     }
                 });
                 adapter.setGroupList(groupList);
