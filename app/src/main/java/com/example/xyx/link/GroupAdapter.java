@@ -44,9 +44,6 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        if (position == 0) {
-            holder.lineTop.setVisibility(View.INVISIBLE);
-        }
         if (position == mDataBean.size() - 1) {
             holder.lineBottom.setVisibility(View.INVISIBLE);
         }
@@ -64,14 +61,13 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     }
 
     class GroupViewHolder extends RecyclerView.ViewHolder {
-        ImageView lineTop, lineBottom;
+        ImageView lineBottom;
         Button point;
         RecyclerView mRecyclerView;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
             lineBottom = itemView.findViewById(R.id.item_line_bottom);
-            lineTop = itemView.findViewById(R.id.item_line_top);
             point = itemView.findViewById(R.id.generation_point);
             mRecyclerView = itemView.findViewById(R.id.generation_list);
         }
