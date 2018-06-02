@@ -3,6 +3,16 @@ package com.example.xyx.link.Bean;
 import cn.bmob.v3.BmobUser;
 
 public class Attribute extends BmobUser{
+
+    public Attribute(){
+
+    }
+
+    public Attribute(int type, int level){
+        this.type = type;
+        this.level = level;
+    }
+
     private Integer type;
 
     private Integer level;
