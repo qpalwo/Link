@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DataBean extends ArrayList<DataBean.Hor> {
 
-    class Hor extends ArrayList<User> {
+    public static class Hor extends ArrayList<User> {
 
     }
 }
