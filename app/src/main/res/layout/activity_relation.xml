@@ -26,8 +26,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="2dp"
-                android:src="@drawable/ic_add_circle_outline_black_24dp"
-                android:layout_width="35dp"
+                android:src="@mipmap/add"
+                android:layout_width="30dp"
                 android:layout_height="50dp" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
