@@ -54,7 +54,7 @@
                     android:layout_height="40dp" />
                 <TextView
                     android:gravity="center|start"
-                    android:textColor="#000000"
+                    android:textColor="#000"
                     android:textSize="20dp"
                     android:text="1215638092"
                     android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                     android:layout_height="40dp" />
                 <TextView
                     android:gravity="center|start"
-                    android:textColor="#000000"
+                    android:textColor="#000"
                     android:textSize="20dp"
                     android:text="1215638092"
                     android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                     android:layout_height="40dp" />
                 <TextView
                     android:gravity="center|start"
-                    android:textColor="#000000"
+                    android:textColor="#000"
                     android:textSize="20dp"
                     android:text="1215638092"
                     android:layout_width="match_parent"
