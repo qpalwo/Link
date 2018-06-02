@@ -1,14 +1,15 @@
 package com.example.xyx.link;
 
-import android.media.Image;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.ActivityChooserView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.xyx.link.Bean.User;
 
@@ -20,10 +21,12 @@ import java.util.ArrayList;
  * Github FourfireChen
  */
 public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.GenerationViewHolder> {
-    ArrayList<User> mUsers = new ArrayList<>();
+    ArrayList<User> mUsers;
+    Context mContext;
 
-    public GenerationAdapter(ArrayList<User> users) {
+    public GenerationAdapter(ArrayList<User> users, Context context) {
         mUsers = users;
+        mContext = context;
     }
 
     @NonNull
@@ -35,6 +38,14 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
 
     @Override
     public void onBindViewHolder(@NonNull GenerationViewHolder holder, int position) {
+        holder.username.setText(mUsers.get(position).getName());
+        holder.avator.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, DetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", mUsers.get(position));
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        });
     }
 
     @Override
@@ -42,9 +53,10 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
         return mUsers.size();
     }
 
-    class GenerationViewHolder extends RecyclerView.ViewHolder{
+    class GenerationViewHolder extends RecyclerView.ViewHolder {
         ImageView avator;
-        TextView username;
+        Button username;
+
         public GenerationViewHolder(View itemView) {
             super(itemView);
             avator = itemView.findViewById(R.id.generation_useravator);
