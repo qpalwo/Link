@@ -18,11 +18,13 @@ import butterknife.BindView;
 /**
  * Created by dizzylay on 2018/6/2.
  */
-public class ForestAdapter extends RecyclerView.Adapter<ForestAdapter.ViewHolder> {
+public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Group> groupList;
 
     private ItemClickedListener clickedListener;
+    public static final int TYPE_NORMAL = 0;
+    public static final int TYPE_TAIL = 1;
 
     public ForestAdapter(ItemClickedListener clickedListener) {
         this.clickedListener = clickedListener;
@@ -30,26 +32,43 @@ public class ForestAdapter extends RecyclerView.Adapter<ForestAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_item, parent,
-                false);
-        return new ViewHolder(view, clickedListener);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_NORMAL) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_item,
+                    parent, false);
+            return new ViewHolder(view, clickedListener);
+        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_add_item,
+                parent, false);
+        return new TailViewHolder(view,clickedListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (position == groupList.size()) {
+            return;
+        }
         Group group = groupList.get(position);
-        holder.groupName.setText(group.getName());
+        ViewHolder viewHolder = (ViewHolder) holder;
+        viewHolder.groupName.setText(group.getName());
         String number = "共" + String.valueOf(group.getGroupNumber()) + "人";
-        holder.memberAmount.setText(number);
+        viewHolder.memberAmount.setText(number);
         if (position % 3 == 0) {
-            holder.image4.setVisibility(View.GONE);
+            viewHolder.image4.setVisibility(View.GONE);
         }
     }
 
     @Override
     public int getItemCount() {
-        return groupList.size();
+        return groupList.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == groupList.size()) {
+            return TYPE_TAIL;
+        }
+        return TYPE_NORMAL;
     }
 
     public void setGroupList(List<Group> groupList) {
@@ -77,7 +96,16 @@ public class ForestAdapter extends RecyclerView.Adapter<ForestAdapter.ViewHolder
         }
     }
 
+    class TailViewHolder extends RecyclerView.ViewHolder {
+
+        TailViewHolder(View itemView, ItemClickedListener clickedListener) {
+            super(itemView);
+            itemView.setOnClickListener(clickedListener::onTailItemClicked);
+        }
+    }
+
     public interface ItemClickedListener {
         void onItemClicked(View view, int index);
+        void onTailItemClicked(View view);
     }
 }

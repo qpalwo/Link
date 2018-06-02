@@ -7,11 +7,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.xyx.link.Bean.Group;
 import com.example.xyx.link.Bean.User;
@@ -28,6 +30,28 @@ import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    @BindView(R.id.user_name)
+    TextView userName;
+    @BindView(R.id.title_toolbar)
+    TextView titleToolbar;
+    @BindView(R.id.phone_image)
+    ImageView phoneImage;
+    @BindView(R.id.phone_number)
+    TextView phoneNumber;
+    @BindView(R.id.qq_image)
+    ImageView qqImage;
+    @BindView(R.id.qq_number)
+    TextView qqNumber;
+    @BindView(R.id.wechat_image)
+    ImageView wechatImage;
+    @BindView(R.id.wechat_number)
+    TextView wechatNumber;
+    @BindView(R.id.setting_image)
+    ImageView settingImage;
+    @BindView(R.id.exit_image)
+    ImageView exitImage;
+    @BindView(R.id.nav_view)
+    NavigationView navView;
     private List<Group> groupList = new ArrayList<>();
     private DataUtil dataUtil;
     private ForestAdapter adapter;
@@ -53,18 +77,8 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setDisplayShowTitleEnabled(false);
+            titleToolbar.setText("Group");
         }
-
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.setting:
-                    Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-                    startActivity(intent);
-            }
-            return true;
-        });
     }
 
     @Override
@@ -88,10 +102,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Group> data) {
                 groupList = data;
-                adapter = new ForestAdapter((view, index) -> {
-                    Intent intent = new Intent(MainActivity.this, RelationshipActivity.class);
-                    intent.putExtra("group", groupList.get(index));
-                    startActivity(intent);
+                adapter = new ForestAdapter(new ForestAdapter.ItemClickedListener() {
+                    @Override
+                    public void onItemClicked(View view, int index) {
+                        Intent intent = new Intent(MainActivity.this, RelationshipActivity.class);
+                        intent.putExtra("group", groupList.get(index));
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onTailItemClicked(View view) {
+
+                    }
                 });
                 adapter.setGroupList(groupList);
                 groupRecyclerView.setAdapter(adapter);
@@ -126,5 +148,23 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.avatar_toolbar)
     public void onViewClicked() {
         drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    @OnClick({R.id.setting_image, R.id.exit_image})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.setting_image: {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.exit_image: {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(this, LoginActivity.class);
+                BmobUser.getCurrentUser().logOut();
+                startActivity(intent);
+                break;
+            }
+        }
     }
 }

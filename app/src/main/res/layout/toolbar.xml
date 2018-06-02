@@ -10,8 +10,8 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/avatar_toolbar"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@mipmap/someone"
         app:riv_oval="true" />
 
@@ -19,8 +19,8 @@
         android:id="@+id/title_toolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 </android.support.v7.widget.Toolbar>
