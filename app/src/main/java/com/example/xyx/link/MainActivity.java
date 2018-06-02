@@ -108,50 +108,53 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Group> data) {
                 groupList = data;
-                adapter = new ForestAdapter(new ForestAdapter.ItemClickedListener() {
-                    @Override
-                    public void onItemClicked(View view, int index) {
-                        Intent intent = new Intent(MainActivity.this, RelationshipActivity.class);
-                        intent.putExtra("group", groupList.get(index));
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onTailItemClicked(View view) {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                        final View dialogView = LayoutInflater.from(MainActivity.this)
-                                .inflate(R.layout.create_dialog, null);
-                        ImageView back = dialogView.findViewById(R.id.back_dialog);
-                        Button finish = dialogView.findViewById(R.id.finish);
-                        EditText nameEdit = dialogView.findViewById(R.id.name_edit);
-                        alert.setView(dialogView);
-                        AlertDialog dialog = alert.create();
-                        back.setOnClickListener(v -> {
-                            dialog.dismiss();
-                        });
-                        finish.setOnClickListener(v -> {
-                            if (TextUtils.isEmpty(nameEdit.getText().toString())) {
-                                Toast.makeText(MainActivity.this, "name can't be null", Toast
-                                        .LENGTH_SHORT).show();
-                                return;
-                            }
-                            String name = nameEdit.getText().toString();
-                            dataUtil.newGroup(name,name);
-                            dialog.dismiss();
-                        });
-                        dialog.show();
-                    }
-                });
-                adapter.setGroupList(groupList);
-                groupRecyclerView.setAdapter(adapter);
-                groupRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
-                        StaggeredGridLayoutManager.VERTICAL));
+                if (adapter != null){
+                    adapter.setGroupList(data);
+                }
             }
 
             @Override
             public void onFu(String msg) {
             }
         });
+        adapter = new ForestAdapter(new ForestAdapter.ItemClickedListener() {
+            @Override
+            public void onItemClicked(View view, int index) {
+                Intent intent = new Intent(MainActivity.this, RelationshipActivity.class);
+                intent.putExtra("group", groupList.get(index));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onTailItemClicked(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                final View dialogView = LayoutInflater.from(MainActivity.this)
+                        .inflate(R.layout.create_dialog, null);
+                ImageView back = dialogView.findViewById(R.id.back_dialog);
+                Button finish = dialogView.findViewById(R.id.finish);
+                EditText nameEdit = dialogView.findViewById(R.id.name_edit);
+                alert.setView(dialogView);
+                AlertDialog dialog = alert.create();
+                back.setOnClickListener(v -> {
+                    dialog.dismiss();
+                });
+                finish.setOnClickListener(v -> {
+                    if (TextUtils.isEmpty(nameEdit.getText().toString())) {
+                        Toast.makeText(MainActivity.this, "name can't be null", Toast
+                                .LENGTH_SHORT).show();
+                        return;
+                    }
+                    String name = nameEdit.getText().toString();
+                    dataUtil.newGroup(name,name);
+                    dialog.dismiss();
+                });
+                dialog.show();
+            }
+        }, this);
+        adapter.setGroupList(groupList);
+        groupRecyclerView.setAdapter(adapter);
+        groupRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL));
     }
 
     private void initView() {

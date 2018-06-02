@@ -22,6 +22,7 @@ import com.example.xyx.link.Bean.Group;
 import com.example.xyx.link.Bean.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 陈钊燚 on 2018/6/2.
@@ -35,11 +36,13 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     DataUtil mDataUtil;
     DataBean mDataBean;
 
+
     public GroupAdapter(Context context, Group group) {
         mContext = context;
         mGroup = group;
         mDataUtil = new DataUtil(context);
         mDataBean = mDataUtil.getOriginData(mGroup);
+
     }
 
     @NonNull
@@ -80,6 +83,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                     holder.qq.setText(user.getQq());
                     holder.phonenumber.setText(user.getPhone());
                     holder.relations.setAdapter(new LinksAdapter((ArrayList<DataBean>)mDataUtil.getAllRelation(mGroup, user)));
+                    //todo
                 }
             }
         });
@@ -118,5 +122,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
             relations = itemView.findViewById(R.id.detail_relation);
             mCardView = itemView.findViewById(R.id.generation_card);
         }
+
+
     }
 }

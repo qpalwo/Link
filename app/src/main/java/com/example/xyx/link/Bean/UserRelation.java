@@ -7,6 +7,16 @@ import cn.bmob.v3.BmobObject;
 
 public class UserRelation extends BmobObject{
 
+    public Group getGroup() {
+        return mGroup;
+    }
+
+    public void setGroup(Group group) {
+        mGroup = group;
+    }
+
+    private Group mGroup;
+
     private User mUser;
 
     private List<Attribute> userAttr;
