@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xyx.link.Bean.Group;
@@ -41,6 +42,9 @@ public class ForestAdapter extends RecyclerView.Adapter<ForestAdapter.ViewHolder
         holder.groupName.setText(group.getName());
         String number = "共" + String.valueOf(group.getGroupNumber()) + "人";
         holder.memberAmount.setText(number);
+        if (position % 3 == 0) {
+            holder.image4.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -60,11 +64,13 @@ public class ForestAdapter extends RecyclerView.Adapter<ForestAdapter.ViewHolder
 
         TextView groupName;
         TextView memberAmount;
+        ImageView image4;
 
         ViewHolder(View itemView, ItemClickedListener clickedListener) {
             super(itemView);
             groupName = itemView.findViewById(R.id.group_name);
             memberAmount = itemView.findViewById(R.id.member_amount);
+            image4 = itemView.findViewById(R.id.image4);
             itemView.setOnClickListener(v -> {
                 clickedListener.onItemClicked(v, getAdapterPosition());
             });
