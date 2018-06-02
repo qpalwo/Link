@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Bmob.initialize(this, "e4bdab8ef7e032628a681cf114e5f9fa");
 
         ButterKnife.bind(this);
+        getWindow().setEnterTransition(new Fade().setDuration(2000));
+        getWindow().setExitTransition(new Fade().setDuration(2000));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content" />
     <android.support.v7.widget.CardView
         app:cardCornerRadius="9dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -73,12 +73,15 @@
                             android:layout_height="50dp" />
                     </android.support.design.widget.TextInputLayout>
                     <Button
+                        android:background="@color/colorPrimary"
                         android:id="@+id/get_verifycode"
                         android:text="获取验证码"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <Button
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimary"
                     android:id="@+id/sign"
                     android:layout_gravity="center"
                     android:text="注册"

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.Toolbar
         app:navigationIcon="@drawable/ic_keyboard_backspace_black_24dp"
         android:id="@+id/invite_toolbar"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/primarycolor"
         android:layout_width="match_parent"
         android:layout_height="56dp">
         <RelativeLayout
@@ -16,9 +18,21 @@
                 android:layout_centerInParent="true"
                 android:paddingRight="70dp"
                 android:textSize="20dp"
+                android:textColor="#252525"
                 android:text="邀请"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.SearchView
+        android:id="@+id/invite_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+    </android.support.v7.widget.SearchView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/invite_search_result"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -87,6 +87,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
+        holder.addrelation.setOnClickListener(v -> {
+            //todo:添加关系
+        });
     }
 
     @Override
@@ -96,11 +99,11 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     class GroupViewHolder extends RecyclerView.ViewHolder {
         ImageView lineBottom;
-        Button point;
+        Button point, addrelation;
         RecyclerView mRecyclerView;
         LinearLayout detailInfo;
         CardView mCardView;
-        TextView weChat, qq, phonenumber, address, age;
+        TextView weChat, qq, phonenumber;
         ListView relations;
         boolean isExpanded = false;
 
@@ -110,13 +113,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
             point = itemView.findViewById(R.id.generation_point);
             mRecyclerView = itemView.findViewById(R.id.generation_list);
             detailInfo = itemView.findViewById(R.id.detail_info);
-            weChat = itemView.findViewById(R.id.detail_wechat);
-            qq = itemView.findViewById(R.id.detail_qq);
-            phonenumber = itemView.findViewById(R.id.detail_phonenumber);
-            address = itemView.findViewById(R.id.detail_address);
-            age = itemView.findViewById(R.id.detail_age);
             relations = itemView.findViewById(R.id.detail_relation);
             mCardView = itemView.findViewById(R.id.generation_card);
+            addrelation = itemView.findViewById(R.id.add_relation);
         }
     }
 }
