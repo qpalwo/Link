@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
-        initData();
-        initView();
     }
 
     @Override
@@ -78,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "onResume: null");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+        }else {
+            initData();
+            initView();
         }
     }
 
@@ -87,13 +87,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Group> data) {
                 groupList = data;
+                adapter = new ForestAdapter((view, index) -> {});
                 adapter.setGroupList(groupList);
+                adapter.setGroupList(groupList);
+                groupRecyclerView.setAdapter(adapter);
+                groupRecyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
             }
 
             @Override
-            public void onFu(String msg) {
-
-            }
+            public void onFu(String msg) {}
         });
     }
 
@@ -113,12 +115,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-        adapter = new ForestAdapter((view, index) -> {
-
-        });
-        adapter.setGroupList(groupList);
-        groupRecyclerView.setAdapter(adapter);
-        groupRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }
 
     @OnClick(R.id.avatar_toolbar)
