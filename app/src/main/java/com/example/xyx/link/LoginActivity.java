@@ -1,5 +1,6 @@
 package com.example.xyx.link;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -63,8 +64,20 @@ public class LoginActivity extends AppCompatActivity {
                 });
                 break;
             case R.id.new_user:
-
+                Intent intent = new Intent(this, SignUpActivity.class);
+                startActivityForResult(intent, 20);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 20){
+            String phonenumber = data.getExtras().getString("username");
+            String password = data.getExtras().getString("password");
+            mUsrname.setText(phonenumber);
+            mPassword.setText(password);
         }
     }
 }
