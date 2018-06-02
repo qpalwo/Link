@@ -40,7 +40,7 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_add_item,
                 parent, false);
-        return new TailViewHolder(view,clickedListener);
+        return new TailViewHolder(view, clickedListener);
     }
 
     @Override
@@ -51,8 +51,12 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Group group = groupList.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.groupName.setText(group.getName());
-        String number = "共" + String.valueOf(group.getGroupNumber()) + "人";
-        viewHolder.memberAmount.setText(number);
+        if (group.getUserRelations() != null) {
+            String number = "共" + String.valueOf(group.getUserRelations().size()) + "人";
+            viewHolder.memberAmount.setText(number);
+        }
+
+
         if (position % 3 == 0) {
             viewHolder.image4.setVisibility(View.GONE);
         }
@@ -106,6 +110,7 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public interface ItemClickedListener {
         void onItemClicked(View view, int index);
+
         void onTailItemClicked(View view);
     }
 }

@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="32dp"
-                android:text="共100人"
+                android:text="共0人"
                 android:textColor="@color/colorTextGrey"
                 android:textSize="16sp" />
         </LinearLayout>
