@@ -42,6 +42,9 @@ public class DataUtil {
 
         List<Attribute> attributes = new ArrayList<>();
         attributes.add(new Attribute(0, level));
+        user.getGroups().add(group);
+        user.setPhone("123");
+        user.save();
 
         userRelation.setUser(user);
         userRelation.setUserAttr(attributes);
@@ -86,12 +89,83 @@ public class DataUtil {
         newGroup.save();
     }
 
-    public void joinRelation(DataBean dataBean, int level){
+    public void joinRelation(Group group, DataBean dataBean, int level) {
+        User user = BmobUser.getCurrentUser(User.class);
+        UserRelation targetRelation = null;
+        for (UserRelation userRelation : group.getUserRelations()){
+            if (userRelation.getUser().getObjectId().equals(user.getObjectId())){
+                targetRelation = userRelation;
+            }
+        }
+        if (targetRelation != null) {
+            targetRelation.getUserAttr().add(new Attribute(dataBean.getType(), level));
+        }
+        group.save();
+    }
+
+    public void quitGroup(Group group){
+        User user = BmobUser.getCurrentUser(User.class);
+        for (UserRelation userRelation : group.getUserRelations()){
+            if(userRelation.getUser().getObjectId().equals(user.getObjectId())){
+
+                group.getUserRelations().remove(userRelation);
+            }
+        }
 
     }
 
-    public void newRelation(Group group, User user, String relationName){
+    public void quitLink(Group group, DataBean dataBean){
 
+    }
+
+
+    /**
+     * 新建關係
+     * @param group  當前羣組
+     * @param user  目標用戶
+     * @param relationName 關係名字
+     * @param position ==0, 同級； >0 , 目標用戶高於當前用戶； <0 , 目標用戶低於當前用戶
+     */
+    public void newRelation(Group group, User user, String relationName, int position) {
+        int type = 0;
+        UserRelation targetRelation = null;
+        UserRelation nowRelation = null;
+        User nowUser = BmobUser.getCurrentUser(User.class);
+        for (UserRelation userRelation : group.getUserRelations()){
+            List<Attribute> attributes = userRelation.getUserAttr();
+            for (Attribute attribute : attributes){
+                if (attribute.getType() > type){
+                    type = attribute.getType();
+                }
+                if (userRelation.getUser().getObjectId().equals(user.getObjectId())){
+                    targetRelation = userRelation;
+                }
+                if (userRelation.getUser().getObjectId().equals(nowUser.getObjectId())){
+                    nowRelation = userRelation;
+                }
+            }
+        }
+
+        Attribute me = new Attribute();
+        Attribute he = new Attribute();
+        me.setType(type);
+        he.setType(type);
+        if (position == 0){
+            me.setLevel(0);
+            he.setLevel(0);
+        } else if (position > 0){
+            he.setLevel(0);
+            me.setLevel(1);
+        }else {
+            me.setLevel(0);
+            he.setLevel(1);
+        }
+
+        if (nowRelation != null && targetRelation!= null) {
+            nowRelation.getUserAttr().add(me);
+            targetRelation.getUserAttr().add(he);
+        }
+        group.save();
     }
 
     public List<DataBean> getAllRelation(Group group, User user) {
@@ -103,7 +177,7 @@ public class DataUtil {
         for (UserRelation userRelation : userRelations) {
             if (userRelation.getUser().getObjectId().equals(user.getObjectId())) {
                 target = userRelation;
-            } else if (userRelation.getUser().getObjectId().equals(nowUser.getObjectId())){
+            } else if (userRelation.getUser().getObjectId().equals(nowUser.getObjectId())) {
                 now = userRelation;
             }
         }
@@ -111,9 +185,9 @@ public class DataUtil {
             List<Attribute> targetUserAttribute = target.getUserAttr();
             List<Attribute> nowUserAttribute = now.getUserAttr();
 
-            for (Attribute i : targetUserAttribute){
-                for (Attribute j : nowUserAttribute){
-                    if (i.getType().equals(j.getType())){
+            for (Attribute i : targetUserAttribute) {
+                for (Attribute j : nowUserAttribute) {
+                    if (i.getType().equals(j.getType())) {
                         dataBeans.add(getDataBean(i.getType(), group));
                     }
                 }
@@ -153,7 +227,7 @@ public class DataUtil {
 //        return dataBean;
     }
 
-    private DataBean getDataBean(int type, Group group){
+    private DataBean getDataBean(int type, Group group) {
         List<UserRelation> relations = group.getUserRelations();
         DataBean dataBean = new DataBean();
         int level = 0;
