@@ -18,6 +18,8 @@ public class User extends BmobUser {
 
     private List<Group> mGroups;
 
+    private int level;
+
     public String getName() {
         return name;
     }
@@ -66,6 +68,13 @@ public class User extends BmobUser {
         mGroups = groups;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
 
 
