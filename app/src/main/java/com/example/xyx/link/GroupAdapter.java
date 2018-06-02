@@ -1,5 +1,6 @@
 package com.example.xyx.link;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +10,22 @@ import android.widget.ImageView;
 
 import com.example.xyx.link.Bean.Group;
 
+import java.net.ConnectException;
+
 /**
  * Created by 陈钊燚 on 2018/6/2.
  * QQ 1215638092
  * Github FourfireChen
  */
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
+
+    Context mContext;
+    Group mGroup;
+
+    public GroupAdapter(Context context, Group group) {
+        mContext = context;
+        mGroup = group;
+    }
 
     //todo:获得代数
 
