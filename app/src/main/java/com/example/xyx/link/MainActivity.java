@@ -12,8 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,19 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         dataUtil = new DataUtil(this);
-        dataUtil.getGroup(new CallBack<List<Group>>() {
-            @Override
-            public void onSuccess(List<Group> data) {
-                groupList = data;
-                if (adapter != null){
-                    adapter.setGroupList(data);
-                }
-            }
-
-            @Override
-            public void onFu(String msg) {
-            }
-        });
         adapter = new ForestAdapter(new ForestAdapter.ItemClickedListener() {
             @Override
             public void onItemClicked(View view, int index) {
@@ -132,8 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTailItemClicked(View view) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
-                final View dialogView = LayoutInflater.from(MainActivity.this)
-                        .inflate(R.layout.create_dialog, null);
+                final View dialogView = LayoutInflater.from(MainActivity.this).inflate(R.layout.create_dialog, null);
                 ImageView back = dialogView.findViewById(R.id.back_dialog);
                 Button finish = dialogView.findViewById(R.id.finish);
                 EditText nameEdit = dialogView.findViewById(R.id.name_edit);
@@ -144,34 +128,54 @@ public class MainActivity extends AppCompatActivity {
                 });
                 finish.setOnClickListener(v -> {
                     if (TextUtils.isEmpty(nameEdit.getText().toString())) {
-                        Toast.makeText(MainActivity.this, "name can't be null", Toast
-                                .LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "name can't be null", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     String name = nameEdit.getText().toString();
-                    dataUtil.newGroup(name,name);
-                    dataUtil.getGroup(new CallBack<List<Group>>() {
+                    dataUtil.newGroup(name, name, new CallBack<Group>() {
                         @Override
-                        public void onSuccess(List<Group> data) {
-                            groupList = data;
-                            if (adapter != null){
-                                adapter.setGroupList(data);
-                                adapter.notifyDataSetChanged();
-                            }
+                        public void onSuccess(Group data) {
+                            dataUtil.getGroup(new CallBack<List<Group>>() {
+                                @Override
+                                public void onSuccess(List<Group> data) {
+                                    groupList = data;
+                                    if (adapter != null) {
+                                        adapter.setGroupList(data);
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                                @Override
+                                public void onFu(String msg) {
+                                }
+                            });
                         }
                         @Override
                         public void onFu(String msg) {
+
                         }
                     });
+
                     dialog.dismiss();
                 });
                 dialog.show();
             }
         }, this);
+        dataUtil.getGroup(new CallBack<List<Group>>() {
+            @Override
+            public void onSuccess(List<Group> data) {
+                groupList = data;
+                if (adapter != null) {
+                    adapter.setGroupList(data);
+                }
+            }
+
+            @Override
+            public void onFu(String msg) {
+            }
+        });
         adapter.setGroupList(groupList);
         groupRecyclerView.setAdapter(adapter);
-        groupRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL));
+        groupRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
     }
 
     private void initView() {

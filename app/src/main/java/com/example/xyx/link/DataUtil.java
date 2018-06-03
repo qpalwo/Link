@@ -167,7 +167,7 @@ public class DataUtil {
 
     }
 
-    public void newGroup(String name, String relationName) {
+    public void newGroup(String name, String relationName, CallBack<Group> callBack) {
         Group newGroup = new Group();
         List<UserRelation> relations = new ArrayList<>();
         UserRelation relation = new UserRelation();
@@ -186,20 +186,26 @@ public class DataUtil {
         newGroup.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                BmobRelation bmobRelation = new BmobRelation();
-                bmobRelation.add(newGroup);
-                User user = new User();
-                user.setGroups(bmobRelation);
-                user.setName("aaabb");
-                user.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if(e == null){
-                            setUserRelations(newGroup, relation);
+                if (e == null){
+                    BmobRelation bmobRelation = new BmobRelation();
+                    bmobRelation.add(newGroup);
+                    User user = new User();
+                    user.setGroups(bmobRelation);
+                    user.setName("aaabb");
+                    user.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                setUserRelations(newGroup, relation);
+                                callBack.onSuccess(newGroup);
+                            }
+                            Log.d(TAG, "done: " + e.getMessage());
                         }
-                        Log.d(TAG, "done: " + e.getMessage());
-                    }
-                });
+                    });
+                }else {
+                    Log.e(TAG, "done: " + e.getMessage());
+                }
+
             }
         });
 

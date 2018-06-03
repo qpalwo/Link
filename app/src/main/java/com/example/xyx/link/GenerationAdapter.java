@@ -1,5 +1,6 @@
 package com.example.xyx.link;
 
+import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mUsers == null ? 0 : mUsers.size();
     }
 
     class GenerationViewHolder extends RecyclerView.ViewHolder {

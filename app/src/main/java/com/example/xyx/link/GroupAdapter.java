@@ -105,7 +105,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                         //todo:弹框框......
                         //todo:等你来.....
                         //todo:这里有position,写个relationname
-                        mDataUtil.newRelation();
+                        //mDataUtil.newRelation();
                     });
                 }
             }
