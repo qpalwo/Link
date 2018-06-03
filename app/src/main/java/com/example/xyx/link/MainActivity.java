@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Bmob.initialize(this, "e4bdab8ef7e032628a681cf114e5f9fa");
 
         ButterKnife.bind(this);
-        /*getWindow().setEnterTransition(new Fade().setDuration(2000));
-        getWindow().setExitTransition(new Fade().setDuration(2000));*/
+        getWindow().setEnterTransition(new Fade().setDuration(2000));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -83,22 +83,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setUserInfo(){
+    private void setUserInfo() {
         User user = BmobUser.getCurrentUser(User.class);
         String name = user.getName();
         String phone = user.getPhone();
         String qq = user.getQq();
         String wechat = user.getWeChat();
-        if(name != null && !name.isEmpty()){
+        if (name != null && !name.isEmpty()) {
             userName.setText(name);
         }
-        if(phone!= null && !phone.isEmpty()){
+        if (phone != null && !phone.isEmpty()) {
             phoneNumber.setText(phone);
         }
-        if(qq != null && !qq.isEmpty()){
+        if (qq != null && !qq.isEmpty()) {
             qqNumber.setText(qq);
         }
-        if(wechat != null && !wechat.isEmpty()){
+        if (wechat != null && !wechat.isEmpty()) {
             wechatNumber.setText(wechat);
         }
     }
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Group> data) {
                 groupList = data;
-                if (adapter != null){
+                if (adapter != null) {
                     adapter.setGroupList(data);
                 }
             }
@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                                         adapter.notifyDataSetChanged();
                                     }
                                 }
+
                                 @Override
                                 public void onFu(String msg) {
                                 }

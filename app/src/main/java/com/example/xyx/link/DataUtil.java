@@ -51,8 +51,6 @@ public class DataUtil {
                         }
                     }
                 }
-
-
             }
         });
     }
@@ -74,47 +72,6 @@ public class DataUtil {
                 }
             }
         });
-
-//        if (relation != null) {
-//            Handler handler = new Handler();
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    CountDownLatch countDownLatch = new CountDownLatch(relation.getObjects().size());
-//                    for (BmobPointer pointer : relation.getObjects()) {
-//                        BmobQuery<Group> query = new BmobQuery<>();
-//                        if (pointer.getObjectId() != null) {
-//                            query.getObject(pointer.getObjectId(), new QueryListener<Group>() {
-//                                @Override
-//                                public void done(Group group, BmobException e) {
-//                                    if (e == null) {
-//                                        groups.add(group);
-//                                    } else {
-//                                        Log.d(TAG, "done: 失敗");
-//                                    }
-//                                    countDownLatch.countDown();
-//                                }
-//                            });
-//                        }
-//                    }
-//                    try {
-//                        countDownLatch.await();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            callBack.onSuccess(groups);
-//                        }
-//                    });
-//
-//                }
-//            }).start();
-
-//        } else {
-//            callBack.onSuccess(new ArrayList<Group>());
-//        }
 
     }
 
@@ -165,18 +122,9 @@ public class DataUtil {
 
         List<Attribute> attributes = new ArrayList<>();
         attributes.add(new Attribute(0, level));
-//        user.getGroups().add(group);
-//        user.setPhone("123");
-//        user.save();
-
         userRelation.setUser(user);
         userRelation.setUserAttr(attributes);
-
         setUserRelations(group, userRelation);
-        //group.getUserRelations().add(userRelation);
-        //group.save();
-
-
     }
 
     public void newGroup(String name, String relationName, CallBack<Group> callBack) {
@@ -217,25 +165,8 @@ public class DataUtil {
                 } else {
                     Log.e(TAG, "done: " + e.getMessage());
                 }
-
             }
         });
-
-
-//        List<Group> groups = BmobUser.getCurrentUser(User.class).getGroups();
-//        if (groups == null) {
-//            groups = new ArrayList<Group>();
-//        }
-//        groups.add(newGroup);
-//        User user = new User();
-//        user.setGroups(groups);
-//        user.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
-//            @Override
-//            public void done(BmobException e) {
-//                Log.d(TAG, "done: " + e.getMessage());
-//            }
-//        });
-
     }
 
     public void joinRelation(Group group, DataBean dataBean, int level) {
@@ -267,30 +198,13 @@ public class DataUtil {
 
             }
         });
-//        for (UserRelation userRelation : group.getUserRelations()) {
-//            if (userRelation.getUser().getObjectId().equals(user.getObjectId())) {
-//                targetRelation = userRelation;
-//            }
-//        }
-//        if (targetRelation != null) {
-//            targetRelation.getUserAttr().add(new Attribute(dataBean.getType(), level));
-//        }
-//        group.save();
     }
 
     public void quitGroup(Group group) {
         User user = BmobUser.getCurrentUser(User.class);
-//        for (UserRelation userRelation : group.getUserRelations()) {
-//            if (userRelation.getUser().getObjectId().equals(user.getObjectId())) {
-//
-//                group.getUserRelations().remove(userRelation);
-//            }
-//        }
-
     }
 
     public void quitLink(Group group, DataBean dataBean) {
-
     }
 
 
@@ -303,11 +217,6 @@ public class DataUtil {
      * @param position     ==0, 同級； >0 , 目標用戶高於當前用戶； <0 , 目標用戶低於當前用戶
      */
     public void newRelation(Group group, User user, String relationName, int position) {
-//        int type = 0;
-//        UserRelation targetRelation = null;
-//        UserRelation nowRelation = null;
-//        User nowUser = BmobUser.getCurrentUser(User.class);
-
         getUserRelations(group, new CallBack<List<UserRelation>>() {
             int type = 0;
             UserRelation targetRelation = null;
@@ -358,49 +267,11 @@ public class DataUtil {
             }
         });
 
-//        for (UserRelation userRelation : group.getUserRelations()) {
-//            List<Attribute> attributes = userRelation.getUserAttr();
-//            for (Attribute attribute : attributes) {
-//                if (attribute.getType() > type) {
-//                    type = attribute.getType();
-//                }
-//                if (userRelation.getUser().getObjectId().equals(user.getObjectId())) {
-//                    targetRelation = userRelation;
-//                }
-//                if (userRelation.getUser().getObjectId().equals(nowUser.getObjectId())) {
-//                    nowRelation = userRelation;
-//                }
-//            }
-//        }
-//
-//        Attribute me = new Attribute();
-//        Attribute he = new Attribute();
-//        me.setType(type);
-//        he.setType(type);
-//        if (position == 0) {
-//            me.setLevel(0);
-//            he.setLevel(0);
-//        } else if (position > 0) {
-//            he.setLevel(0);
-//            me.setLevel(1);
-//        } else {
-//            me.setLevel(0);
-//            he.setLevel(1);
-//        }
-//
-//        if (nowRelation != null && targetRelation != null) {
-//            nowRelation.getUserAttr().add(me);
-//            targetRelation.getUserAttr().add(he);
-//        }
-        //group.save();
     }
 
     public void getAllRelation(Group group, User user, CallBack<List<DataBean>> callBack) {
         List<DataBean> dataBeans = new ArrayList<>();
         User nowUser = BmobUser.getCurrentUser(User.class);
-        //       List<UserRelation> data = group.getUserRelations();
-//        UserRelation target = null;
-//        UserRelation now = null;
 
         getUserRelations(group, new CallBack<List<UserRelation>>() {
             UserRelation target = null;
@@ -439,30 +310,6 @@ public class DataUtil {
             }
         });
 
-
-//        for (UserRelation userRelation : data) {
-//            if (userRelation.getUser().getObjectId().equals(user.getObjectId())) {
-//                target = userRelation;
-//            } else if (userRelation.getUser().getObjectId().equals(nowUser.getObjectId())) {
-//                now = userRelation;
-//            }
-//        }
-//        if (target != null && now != null) {
-//            List<Attribute> targetUserAttribute = target.getUserAttr();
-//            List<Attribute> nowUserAttribute = now.getUserAttr();
-//
-//            for (Attribute i : targetUserAttribute) {
-//                for (Attribute j : nowUserAttribute) {
-//                    if (i.getType().equals(j.getType())) {
-//                        dataBeans.add(getDataBean(i.getType(), group));
-//                    }
-//                }
-//            }
-//        } else {
-//            return null;
-//        }
-//
-//        return dataBeans;
     }
 
     public void getOriginData(Group group, CallBack<DataBean> callBack) {
@@ -477,36 +324,9 @@ public class DataUtil {
 
             }
         });
-
-        //return getDataBean(0, group);
-//        List<UserRelation> relations = group.getUserRelations();
-//        DataBean dataBean = new DataBean();
-//        int level = 0;
-//        Map<Integer, DataBean.Hor> user = new ArrayMap<>();
-//        for (UserRelation userRelation : relations) {
-//            List<Attribute> attributes = userRelation.getUserAttr();
-//            for (Attribute attribute : attributes) {
-//                if (attribute.getType() == 0) {
-//                    if (user.get(attribute.getLevel()) != null) {
-//                        user.get(attribute.getLevel()).add(userRelation.getUser());
-//                    } else {
-//                        DataBean.Hor temp = new DataBean.Hor();
-//                        temp.add(userRelation.getUser());
-//                        user.put(attribute.getLevel(), temp);
-//                        level++;
-//                    }
-//                    break;
-//                }
-//            }
-//        }
-//        for (int i = 0; i < level; i++) {
-//            dataBean.add(user.get(i));
-//        }
-//        return dataBean;
     }
 
     private DataBean getDataBean(int type, List<UserRelation> userRelations) {
-//        List<UserRelation> relations = group.getUserRelations();
         DataBean dataBean = new DataBean();
         int level = 0;
         Map<Integer, DataBean.Hor> user = new ArrayMap<>();

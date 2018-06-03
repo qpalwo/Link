@@ -68,11 +68,6 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
 
-//        if (group.getUserRelations() != null) {
-//            String number = "共" + String.valueOf(group.getUserRelations().size()) + "人";
-//            viewHolder.memberAmount.setText(number);
-//        }
-
 
         if (position % 3 == 0) {
             viewHolder.image4.setVisibility(View.GONE);

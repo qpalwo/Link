@@ -24,6 +24,7 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
     ArrayList<User> mUsers = new ArrayList<>();
     AvatorClickListener mOnClickListener;
     Random mRandom = new Random();
+    private boolean isFirst = true;
 
     public GenerationAdapter(ArrayList<User> users, AvatorClickListener clickListener) {
         mUsers = users;
@@ -35,28 +36,32 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
     public GenerationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_avator, parent, false);
         GenerationViewHolder generationViewHolder = new GenerationViewHolder(view);
-        int avator = mRandom.nextInt() % 5;
-        switch (avator){
-            case 0:
-                avator = R.mipmap.logo2;
-                break;
-            case 1:
-                avator = R.mipmap.logo1;
-                break;
-            case 2:
-                avator = R.mipmap.someone;
-                break;
-            case 3:
-                avator = R.mipmap.username;
-                break;
-            case 4:
-                avator = R.mipmap.password;
-                break;
-            default:
-                avator = R.mipmap.image3;
+        if (isFirst) {
+            isFirst = false;
+            int avator = mRandom.nextInt() % 5;
+            switch (avator) {
+                case 0:
+                    avator = R.mipmap.logo2;
+                    break;
+                case 1:
+                    avator = R.mipmap.logo1;
+                    break;
+                case 2:
+                    avator = R.mipmap.someone;
+                    break;
+                case 3:
+                    avator = R.mipmap.username;
+                    break;
+                case 4:
+                    avator = R.mipmap.password;
+                    break;
+                default:
+                    avator = R.mipmap.image3;
+            }
+            Bitmap bitmap = BitmapFactory.decodeResource(parent.getResources(), avator);
+            generationViewHolder.avator.setImageBitmap(bitmap);
         }
-        Bitmap bitmap = BitmapFactory.decodeResource(parent.getResources(), avator);
-        generationViewHolder.avator.setImageBitmap(bitmap);
+
         return generationViewHolder;
     }
 
@@ -66,7 +71,7 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
             mOnClickListener.click(v, position);
         });
         User user = mUsers.get(position);
-        if (user.getName() != null && !user.getName().isEmpty()){
+        if (user.getName() != null && !user.getName().isEmpty()) {
             holder.username.setText(user.getName());
         }
 

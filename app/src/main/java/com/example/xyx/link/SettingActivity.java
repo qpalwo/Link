@@ -42,10 +42,10 @@ public class SettingActivity extends AppCompatActivity {
         String wechat = mWechatEdit.getText().toString();
         String qq = mQqEdit.getText().toString();
         String phone = mPhoneEdit.getText().toString();
-        if(name.isEmpty() || wechat.isEmpty() || qq.isEmpty() || phone.isEmpty()){
+        if (name.isEmpty() || wechat.isEmpty() || qq.isEmpty() || phone.isEmpty()) {
             Toast.makeText(this, "信息不能为空", Toast.LENGTH_SHORT).show();
             return;
-        }else {
+        } else {
             user.setWeChat(wechat);
             user.setQq(qq);
             user.setPhone(phone);
@@ -53,9 +53,9 @@ public class SettingActivity extends AppCompatActivity {
             user.update(user.getObjectId(), new UpdateListener() {
                 @Override
                 public void done(BmobException e) {
-                    if(e != null){
+                    if (e != null) {
                         finish();
-                    }else{
+                    } else {
                         Toast.makeText(SettingActivity.this, "信息更改失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

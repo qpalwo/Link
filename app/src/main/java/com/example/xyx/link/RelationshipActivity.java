@@ -59,15 +59,6 @@ public class RelationshipActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         dataUtil = new DataUtil(this);
-        /*DataUtil dataUtil = new DataUtil(this);
-        BmobQuery<User> query = new BmobQuery<>();
-        query.addWhereEqualTo("username", "876");
-        query.findObjects(new FindListener<User>() {
-            @Override
-            public void done(List<User> list, BmobException e) {
-                dataUtil.newGroupAddUser(group, list.get(0), 1);
-            }
-        });*/
 
     }
 
