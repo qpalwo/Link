@@ -34,6 +34,29 @@ public class DataUtil {
         mContext = context;
     }
 
+    public void checkGroup(List<Group> groups) {
+        User user = BmobUser.getCurrentUser(User.class);
+        BmobQuery<UserRelation> query = new BmobQuery<>();
+        query.addWhereEqualTo("mUser", user);
+        query.findObjects(new FindListener<UserRelation>() {
+            @Override
+            public void done(List<UserRelation> list, BmobException e) {
+
+                for (UserRelation userRelation : list) {
+                    for (Group group : groups) {
+                        if (!userRelation.getGroup().getObjectId().equals(group.getObjectId())) {
+                            BmobRelation bmobRelation = new BmobRelation();
+                            bmobRelation.add(group);
+                            user.setGroups(bmobRelation);
+                        }
+                    }
+                }
+
+
+            }
+        });
+    }
+
     public void getGroup(CallBack<List<Group>> callBack) {
         //List<Group> groups = BmobUser.getCurrentUser(User.class).getGroups();
         User temp = BmobUser.getCurrentUser(User.class);
@@ -46,6 +69,7 @@ public class DataUtil {
             public void done(List<Group> list, BmobException e) {
                 if (e == null) {
                     groups.addAll(list);
+                    checkGroup(groups);
                     callBack.onSuccess(groups);
                 }
             }

@@ -106,6 +106,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         dataUtil = new DataUtil(this);
+        dataUtil.getGroup(new CallBack<List<Group>>() {
+            @Override
+            public void onSuccess(List<Group> data) {
+                groupList = data;
+                if (adapter != null){
+                    adapter.setGroupList(data);
+                }
+            }
+
+            @Override
+            public void onFu(String msg) {
+            }
+        });
         adapter = new ForestAdapter(new ForestAdapter.ItemClickedListener() {
             @Override
             public void onItemClicked(View view, int index) {
