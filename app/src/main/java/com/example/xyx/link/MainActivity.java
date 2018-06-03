@@ -34,7 +34,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -114,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
                 groupList = data;
                 if (adapter != null){
                     adapter.setGroupList(data);
+                    BmobQuery<User> query = new BmobQuery<>();
+                    query.addWhereEqualTo("username", "16");
+                    query.findObjects(new FindListener<User>() {
+                        @Override
+                        public void done(List<User> list, BmobException e) {
+                            dataUtil.newGroupAddUser(data.get(0), list.get(0), 4);
+                        }
+                    });
+
                 }
             }
 

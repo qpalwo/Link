@@ -43,7 +43,7 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mUsers != null?mUsers.size():0;
     }
 
     class GenerationViewHolder extends RecyclerView.ViewHolder {
