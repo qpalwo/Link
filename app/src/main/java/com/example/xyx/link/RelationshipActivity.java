@@ -71,7 +71,7 @@ public class RelationshipActivity extends AppCompatActivity {
     public void onViewClicked() {
         AlertDialog.Builder alert = new AlertDialog.Builder(RelationshipActivity.this);
         final View dialogView = LayoutInflater.from(RelationshipActivity.this)
-                .inflate(R.layout.create_dialog, null);
+                .inflate(R.layout.invite_dialog, null);
         ImageView back = dialogView.findViewById(R.id.back_dialog);
         Button finish = dialogView.findViewById(R.id.finish_invite);
         EditText userphoneEdit = dialogView.findViewById(R.id.userphone_edit);
