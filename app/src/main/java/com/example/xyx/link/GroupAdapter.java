@@ -53,7 +53,6 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                 mDataBean = data;
                 notifyDataSetChanged();
             }
-
             @Override
             public void onFu(String msg) {
             }
@@ -64,8 +63,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.generation_item,
-                parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.generation_item, parent, false);
         return new GroupViewHolder(view);
     }
 

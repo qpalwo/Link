@@ -42,7 +42,7 @@ public class LinksAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = LayoutInflater.from(convertView.getContext()).inflate(R.layout.textview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.textview, parent, false);
         TextView textView = view.findViewById(R.id.relation_name);
         textView.setText(mDataBeans.get(position).getRelationName());
         return view;

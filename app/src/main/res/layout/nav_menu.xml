@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/phone_layout"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp">
+        android:layout_marginTop="30dp">
 
         <ImageView
             android:id="@+id/phone_image"
@@ -30,8 +31,7 @@
 
     <RelativeLayout
         android:id="@+id/qq_layout"
-        android:layout_below="@id/phone_layout"
-        android:layout_alignStart="@id/phone_layout"
+        android:layout_marginStart="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp">
@@ -54,8 +54,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/qq_layout"
-        android:layout_alignStart="@id/qq_layout"
+        android:layout_marginStart="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp">
@@ -125,4 +124,4 @@
         </RelativeLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +43,16 @@ public class RelationshipActivity extends AppCompatActivity {
     ImageView mAddMember;
     Group group;
     DataUtil dataUtil;
+    @BindView(R.id.relation_toolbar)
+    Toolbar mRelationToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relation);
         ButterKnife.bind(this);
+        setSupportActionBar(mRelationToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         group = (Group) getIntent().getExtras().getSerializable("group");
         if (group != null) {
             mGroupAdapter = new GroupAdapter(this, group);
@@ -108,5 +114,15 @@ public class RelationshipActivity extends AppCompatActivity {
         if (requestCode == 20) {
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }
