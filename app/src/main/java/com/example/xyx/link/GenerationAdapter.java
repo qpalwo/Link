@@ -1,6 +1,5 @@
 package com.example.xyx.link;
 
-import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -61,6 +60,7 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
     abstract static class AvatorClickListener implements View.OnClickListener {
 
         abstract void click(View v, int position);
+
         @Override
         public void onClick(View v) {}
     }

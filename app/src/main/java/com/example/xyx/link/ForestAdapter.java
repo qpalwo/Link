@@ -14,8 +14,6 @@ import com.example.xyx.link.Bean.Group;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created by dizzylay on 2018/6/2.
  */
@@ -40,12 +38,10 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_NORMAL) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_item,
-                    parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_item, parent, false);
             return new ViewHolder(view, clickedListener);
         }
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_add_item,
-                parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forest_add_item, parent, false);
         return new TailViewHolder(view, clickedListener);
     }
 

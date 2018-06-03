@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,14 +22,12 @@ import com.example.xyx.link.Bean.User;
 
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by 陈钊燚 on 2018/6/2.
@@ -76,8 +74,7 @@ public class RelationshipActivity extends AppCompatActivity {
     @OnClick(R.id.add_member)
     public void onViewClicked() {
         AlertDialog.Builder alert = new AlertDialog.Builder(RelationshipActivity.this);
-        final View dialogView = LayoutInflater.from(RelationshipActivity.this)
-                .inflate(R.layout.invite_dialog, null);
+        final View dialogView = LayoutInflater.from(RelationshipActivity.this).inflate(R.layout.invite_dialog, null);
         ImageView back = dialogView.findViewById(R.id.back_dialog);
         Button finish = dialogView.findViewById(R.id.finish_invite);
         EditText userphoneEdit = dialogView.findViewById(R.id.userphone_edit);
@@ -89,10 +86,8 @@ public class RelationshipActivity extends AppCompatActivity {
         });
         finish.setOnClickListener(v -> {
             String userphone = userphoneEdit.getText().toString();
-            if (TextUtils.isEmpty(userphone) ||
-                    TextUtils.isEmpty(levelEdit.getText().toString())) {
-                Toast.makeText(RelationshipActivity.this, "can't be null", Toast
-                        .LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(userphone) || TextUtils.isEmpty(levelEdit.getText().toString())) {
+                Toast.makeText(RelationshipActivity.this, "can't be null", Toast.LENGTH_SHORT).show();
                 return;
             }
             int level = Integer.valueOf(levelEdit.getText().toString());

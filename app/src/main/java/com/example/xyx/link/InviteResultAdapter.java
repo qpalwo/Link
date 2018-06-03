@@ -13,9 +13,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Created by 陈钊燚 on 2018/6/3.
  * QQ 1215638092
@@ -47,7 +44,7 @@ public class InviteResultAdapter extends RecyclerView.Adapter<InviteResultAdapte
         mUsers = users;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         RoundedImageView mRoundedImageView;
         TextView mTextView;
         Button mButton;

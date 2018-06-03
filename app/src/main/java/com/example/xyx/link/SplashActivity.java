@@ -17,6 +17,7 @@ import java.util.TimerTask;
  */
 public class SplashActivity extends AppCompatActivity {
     Handler mHandler = new Handler();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

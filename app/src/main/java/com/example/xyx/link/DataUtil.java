@@ -1,7 +1,6 @@
 package com.example.xyx.link;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,26 +12,15 @@ import com.example.xyx.link.Bean.User;
 import com.example.xyx.link.Bean.UserRelation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
-import cn.bmob.newim.BmobIM;
-import cn.bmob.newim.bean.BmobIMConversation;
-import cn.bmob.newim.bean.BmobIMMessage;
-import cn.bmob.newim.bean.BmobIMTextMessage;
-import cn.bmob.newim.bean.BmobIMUserInfo;
-import cn.bmob.newim.core.BmobIMClient;
-import cn.bmob.newim.listener.ConnectListener;
-import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -106,7 +94,7 @@ public class DataUtil {
 
     }
 
-    public void getGroupMemberNumber(Group group, CallBack<String> callBack){
+    public void getGroupMemberNumber(Group group, CallBack<String> callBack) {
         getUserRelations(group, new CallBack<List<UserRelation>>() {
             @Override
             public void onSuccess(List<UserRelation> data) {
@@ -120,15 +108,15 @@ public class DataUtil {
         });
     }
 
-    private void getUserRelations(Group group, CallBack<List<UserRelation>> callBack){
+    private void getUserRelations(Group group, CallBack<List<UserRelation>> callBack) {
         BmobQuery<UserRelation> userRelationBmobQuery = new BmobQuery<>();
         userRelationBmobQuery.addWhereEqualTo("mGroup", new BmobPointer(group));
         userRelationBmobQuery.findObjects(new FindListener<UserRelation>() {
             @Override
             public void done(List<UserRelation> list, BmobException e) {
-                if(e == null){
+                if (e == null) {
                     callBack.onSuccess(list);
-                }else {
+                } else {
                     callBack.onFu(e.getMessage());
                 }
 
@@ -136,12 +124,12 @@ public class DataUtil {
         });
     }
 
-    private void setUserRelations(Group group, UserRelation userRelation){
+    private void setUserRelations(Group group, UserRelation userRelation) {
         userRelation.setGroup(group);
         userRelation.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     Log.d(TAG, "done: userRelation add successful");
                 }
             }
@@ -186,7 +174,7 @@ public class DataUtil {
         newGroup.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     BmobRelation bmobRelation = new BmobRelation();
                     bmobRelation.add(newGroup);
                     User user = new User();
@@ -195,14 +183,14 @@ public class DataUtil {
                     user.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
-                            if(e == null){
+                            if (e == null) {
                                 setUserRelations(newGroup, relation);
                                 callBack.onSuccess(newGroup);
                             }
                             Log.d(TAG, "done: " + e.getMessage());
                         }
                     });
-                }else {
+                } else {
                     Log.e(TAG, "done: " + e.getMessage());
                 }
 
@@ -242,7 +230,7 @@ public class DataUtil {
                     targetRelation.update(targetRelation.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
-                            if (e == null){
+                            if (e == null) {
                                 Log.d(TAG, "done: relation add success");
                             }
                         }
@@ -301,6 +289,7 @@ public class DataUtil {
             UserRelation targetRelation = null;
             UserRelation nowRelation = null;
             User nowUser = BmobUser.getCurrentUser(User.class);
+
             @Override
             public void onSuccess(List<UserRelation> data) {
                 for (UserRelation userRelation : data) {
@@ -385,13 +374,14 @@ public class DataUtil {
     public void getAllRelation(Group group, User user, CallBack<List<DataBean>> callBack) {
         List<DataBean> dataBeans = new ArrayList<>();
         User nowUser = BmobUser.getCurrentUser(User.class);
- //       List<UserRelation> data = group.getUserRelations();
+        //       List<UserRelation> data = group.getUserRelations();
 //        UserRelation target = null;
 //        UserRelation now = null;
 
         getUserRelations(group, new CallBack<List<UserRelation>>() {
             UserRelation target = null;
             UserRelation now = null;
+
             @Override
             public void onSuccess(List<UserRelation> data) {
                 for (UserRelation userRelation : data) {
@@ -491,7 +481,7 @@ public class DataUtil {
 //        return dataBean;
     }
 
-    private DataBean getDataBean(int type, List<UserRelation> userRelations ) {
+    private DataBean getDataBean(int type, List<UserRelation> userRelations) {
 //        List<UserRelation> relations = group.getUserRelations();
         DataBean dataBean = new DataBean();
         int level = 0;
@@ -519,7 +509,6 @@ public class DataUtil {
         dataBean.setType(type);
         return dataBean;
     }
-
 
 
 }

@@ -54,7 +54,7 @@ public class InviteActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(mInviteSearchResult.getVisibility() != View.VISIBLE){
+                if (mInviteSearchResult.getVisibility() != View.VISIBLE) {
                     mInviteSearchResult.setVisibility(View.VISIBLE);
                 }
                 //todo:查数据

@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 user.signUp(new SaveListener<User>() {
                                     @Override
                                     public void done(User user, BmobException e) {
-                                        if(e==null){
+                                        if (e == null) {
                                             Intent intent = new Intent();
                                             Bundle bundle = new Bundle();
                                             bundle.putString("username", phonenumber);
@@ -90,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             intent.putExtras(bundle);
                                             SignUpActivity.this.setResult(20, intent);
                                             finish();
-                                        }else {
+                                        } else {
                                             Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }

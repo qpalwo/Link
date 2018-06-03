@@ -8,9 +8,6 @@ import android.widget.TextView;
 
 import com.example.xyx.link.Bean.DataBean;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

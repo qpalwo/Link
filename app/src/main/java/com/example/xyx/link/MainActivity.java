@@ -144,11 +144,13 @@ public class MainActivity extends AppCompatActivity {
                                         adapter.notifyDataSetChanged();
                                     }
                                 }
+
                                 @Override
                                 public void onFu(String msg) {
                                 }
                             });
                         }
+
                         @Override
                         public void onFu(String msg) {
 

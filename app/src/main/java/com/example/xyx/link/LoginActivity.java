@@ -55,9 +55,9 @@ public class LoginActivity extends AppCompatActivity {
                 user.login(new SaveListener<User>() {
                     @Override
                     public void done(User user, BmobException e) {
-                        if(e == null){
+                        if (e == null) {
                             finish();
-                        }else {
+                        } else {
                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 20){
+        if (requestCode == 20) {
             if (data != null) {
                 String phonenumber = data.getExtras().getString("username");
                 String password = data.getExtras().getString("password");
