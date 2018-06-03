@@ -38,7 +38,6 @@ public class GenerationAdapter extends RecyclerView.Adapter<GenerationAdapter.Ge
     public void onBindViewHolder(@NonNull GenerationViewHolder holder, int position) {
         holder.avator.setOnClickListener(v -> {
             mOnClickListener.click(v, position);
-
         });
     }
 
