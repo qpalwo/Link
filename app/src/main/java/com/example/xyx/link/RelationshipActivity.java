@@ -9,6 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.example.xyx.link.Bean.Group;
+import com.example.xyx.link.Bean.User;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +45,16 @@ public class RelationshipActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(mGroupAdapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
+        DataUtil dataUtil = new DataUtil(this);
+        BmobQuery<User> query = new BmobQuery<>();
+        query.addWhereEqualTo("username", "876");
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                dataUtil.newGroupAddUser(group, list.get(0), 1);
+            }
+        });
+
     }
 
     @OnClick(R.id.add_member)

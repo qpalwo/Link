@@ -1,5 +1,6 @@
 package com.example.xyx.link;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,8 +27,11 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_TAIL = 1;
 
-    public ForestAdapter(ItemClickedListener clickedListener) {
+    Context mContext;
+
+    public ForestAdapter(ItemClickedListener clickedListener, Context context) {
         this.clickedListener = clickedListener;
+        this.mContext = context;
     }
 
     @NonNull
@@ -51,10 +55,25 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Group group = groupList.get(position);
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.groupName.setText(group.getName());
-        if (group.getUserRelations() != null) {
-            String number = "共" + String.valueOf(group.getUserRelations().size()) + "人";
-            viewHolder.memberAmount.setText(number);
-        }
+
+        DataUtil dataUtil = new DataUtil(mContext);
+        dataUtil.getGroupMemberNumber(group, new CallBack<String>() {
+            @Override
+            public void onSuccess(String data) {
+                String number = "共" + String.valueOf(data) + "人";
+                viewHolder.memberAmount.setText(number);
+            }
+
+            @Override
+            public void onFu(String msg) {
+
+            }
+        });
+
+//        if (group.getUserRelations() != null) {
+//            String number = "共" + String.valueOf(group.getUserRelations().size()) + "人";
+//            viewHolder.memberAmount.setText(number);
+//        }
 
 
         if (position % 3 == 0) {

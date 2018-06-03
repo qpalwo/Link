@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 
 public class User extends BmobUser {
 
@@ -17,7 +18,7 @@ public class User extends BmobUser {
 
     private String phone;
 
-    private List<Group> mGroups = new ArrayList<>();
+    private BmobRelation mGroups;
 
     private int level;
 
@@ -65,11 +66,11 @@ public class User extends BmobUser {
         this.phone = phone;
     }
 
-    public List<Group> getGroups() {
+    public BmobRelation getGroups() {
         return mGroups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public void setGroups(BmobRelation groups) {
         mGroups = groups;
     }
 
