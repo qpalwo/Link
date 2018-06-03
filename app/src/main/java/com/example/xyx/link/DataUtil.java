@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.xyx.link.Bean.Attribute;
 import com.example.xyx.link.Bean.DataBean;
@@ -114,7 +115,7 @@ public class DataUtil {
 
             @Override
             public void onFu(String msg) {
-
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -125,7 +126,12 @@ public class DataUtil {
         userRelationBmobQuery.findObjects(new FindListener<UserRelation>() {
             @Override
             public void done(List<UserRelation> list, BmobException e) {
-                callBack.onSuccess(list);
+                if(e == null){
+                    callBack.onSuccess(list);
+                }else {
+                    callBack.onFu(e.getMessage());
+                }
+
             }
         });
     }
@@ -157,7 +163,6 @@ public class DataUtil {
         setUserRelations(group, userRelation);
         //group.getUserRelations().add(userRelation);
         group.save();
-        initIMService(group, user);
 
 
     }
@@ -507,36 +512,6 @@ public class DataUtil {
         return dataBean;
     }
 
-    private void initIMService(Group group, User user) {
-        BmobIMUserInfo imUserInfo = new BmobIMUserInfo(
-                user.getObjectId(),
-                user.getUsername(), user.getAva());
-        BmobIM.getInstance().updateUserInfo(imUserInfo);
-
-        BmobIM.connect(BmobUser.getCurrentUser().getObjectId(), new ConnectListener() {
-            @Override
-            public void done(String s, BmobException e) {
-                Log.d(TAG, "done: 鏈接成功");
-            }
-        });
-
-        BmobIMConversation conversationEntrance =
-                BmobIM.getInstance().startPrivateConversation(imUserInfo, true, null);
-
-        BmobIMConversation messageManeger = BmobIMConversation.obtain(BmobIMClient.getInstance(),
-                conversationEntrance);
-        BmobIMTextMessage message = new BmobIMTextMessage();
-        Map<String, Object> map = new HashMap<>();
-        map.put("group", group);
-        message.setExtraMap(map);
-        messageManeger.sendMessage(message, new MessageSendListener() {
-            @Override
-            public void done(BmobIMMessage bmobIMMessage, BmobException e) {
-                Log.d(TAG, "done: " + e.getMessage());
-            }
-        });
-
-    }
 
 
 }

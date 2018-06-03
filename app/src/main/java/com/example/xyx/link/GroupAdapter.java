@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.xyx.link.Bean.DataBean;
@@ -41,7 +42,15 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         mContext = context;
         mGroup = group;
         mDataUtil = new DataUtil(context);
-        mDataBean = mDataUtil.getOriginData(mGroup);
+        mDataUtil.getOriginData(mGroup, new CallBack<DataBean>() {
+            @Override
+            public void onSuccess(DataBean data) {
+                mDataBean = data;
+            }
+            @Override
+            public void onFu(String msg) {
+            }
+        });
 
     }
 
@@ -82,8 +91,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                     holder.weChat.setText(user.getWeChat());
                     holder.qq.setText(user.getQq());
                     holder.phonenumber.setText(user.getPhone());
-                    holder.relations.setAdapter(new LinksAdapter((ArrayList<DataBean>)mDataUtil.getAllRelation(mGroup, user)));
-                    //todo
+                    mDataUtil.getAllRelation(mGroup, user, new CallBack<List<DataBean>>() {
+                        @Override
+                        public void onSuccess(List<DataBean> data) {
+                            holder.relations.setAdapter(new LinksAdapter((ArrayList<DataBean>) data));
+                        }
+                        @Override
+                        public void onFu(String msg) { }
+                    });
                 }
             }
         });
@@ -98,14 +113,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     @Override
     public int getItemCount() {
-        return mDataBean.size();
+        return mDataBean == null ? 0 : mDataBean.size();
     }
 
     class GroupViewHolder extends RecyclerView.ViewHolder {
         ImageView lineBottom;
         Button point, addrelation;
         RecyclerView mRecyclerView;
-        LinearLayout detailInfo;
+        RelativeLayout detailInfo;
         CardView mCardView;
         TextView weChat, qq, phonenumber;
         ListView relations;
