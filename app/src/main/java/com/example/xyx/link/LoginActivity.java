@@ -73,10 +73,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 20){
-            String phonenumber = data.getExtras().getString("username");
-            String password = data.getExtras().getString("password");
-            mUsrname.setText(phonenumber);
-            mPassword.setText(password);
+            if (data != null) {
+                String phonenumber = data.getExtras().getString("username");
+                String password = data.getExtras().getString("password");
+                mUsrname.setText(phonenumber);
+                mPassword.setText(password);
+            }
         }
     }
 }

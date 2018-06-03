@@ -27,11 +27,13 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_TAIL = 1;
 
-    Context mContext;
+    private Context mContext;
+    private DataUtil dataUtil;
 
     public ForestAdapter(ItemClickedListener clickedListener, Context context) {
         this.clickedListener = clickedListener;
         this.mContext = context;
+        dataUtil = new DataUtil(context);
     }
 
     @NonNull
@@ -56,12 +58,12 @@ public class ForestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ViewHolder viewHolder = (ViewHolder) holder;
         viewHolder.groupName.setText(group.getName());
 
-        DataUtil dataUtil = new DataUtil(mContext);
         dataUtil.getGroupMemberNumber(group, new CallBack<String>() {
             @Override
             public void onSuccess(String data) {
                 String number = "共" + String.valueOf(data) + "人";
                 viewHolder.memberAmount.setText(number);
+                notifyDataSetChanged();
             }
 
             @Override

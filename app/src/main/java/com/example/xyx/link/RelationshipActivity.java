@@ -3,10 +3,17 @@ package com.example.xyx.link;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.xyx.link.Bean.Group;
 import com.example.xyx.link.Bean.User;
@@ -14,6 +21,7 @@ import com.example.xyx.link.Bean.User;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
@@ -32,6 +40,7 @@ public class RelationshipActivity extends AppCompatActivity {
     @BindView(R.id.add_member)
     ImageView mAddMember;
     Group group;
+    DataUtil dataUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +54,7 @@ public class RelationshipActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(mGroupAdapter);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
+        dataUtil = new DataUtil(this);
         /*DataUtil dataUtil = new DataUtil(this);
         BmobQuery<User> query = new BmobQuery<>();
         query.addWhereEqualTo("username", "876");
@@ -59,11 +69,38 @@ public class RelationshipActivity extends AppCompatActivity {
 
     @OnClick(R.id.add_member)
     public void onViewClicked() {
-        Intent intent = new Intent(this, InviteActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("group", group);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 20);
+        AlertDialog.Builder alert = new AlertDialog.Builder(RelationshipActivity.this);
+        final View dialogView = LayoutInflater.from(RelationshipActivity.this)
+                .inflate(R.layout.create_dialog, null);
+        ImageView back = dialogView.findViewById(R.id.back_dialog);
+        Button finish = dialogView.findViewById(R.id.finish_invite);
+        EditText userphoneEdit = dialogView.findViewById(R.id.userphone_edit);
+        EditText levelEdit = dialogView.findViewById(R.id.level_edit);
+        alert.setView(dialogView);
+        AlertDialog dialog = alert.create();
+        back.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+        finish.setOnClickListener(v -> {
+            String userphone = userphoneEdit.getText().toString();
+            if (TextUtils.isEmpty(userphone) ||
+                    TextUtils.isEmpty(levelEdit.getText().toString())) {
+                Toast.makeText(RelationshipActivity.this, "can't be null", Toast
+                        .LENGTH_SHORT).show();
+                return;
+            }
+            int level = Integer.valueOf(levelEdit.getText().toString());
+            BmobQuery<User> bmobUserBmobQuery = new BmobQuery<>();
+            bmobUserBmobQuery.addWhereEqualTo("username", userphone);
+            bmobUserBmobQuery.findObjects(new FindListener<User>() {
+                @Override
+                public void done(List<User> list, BmobException e) {
+                    dataUtil.newGroupAddUser(group, list.get(0), level);
+                }
+            });
+
+
+        });
     }
 
     @Override
