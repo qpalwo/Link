@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
         String confirmPassword = mConfirmPassword.getText().toString();
         String verifycode = mVerifyCode.getText().toString();
         switch (view.getId()) {
-            case R.id.get_verifycode: {
+            case R.id.get_verifycode:
                 if (!phonenumber.isEmpty()) {
                     BmobSMS.requestSMSCode(phonenumber, "11111", new QueryListener<Integer>() {
                         @Override
@@ -67,7 +67,6 @@ public class SignUpActivity extends AppCompatActivity {
                     });
                 }
                 break;
-            }
             case R.id.sign:
                 if (phonenumber.isEmpty() && verifycode.isEmpty() && password.isEmpty() && confirmPassword.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();

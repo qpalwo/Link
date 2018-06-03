@@ -96,12 +96,19 @@ public class RelationshipActivity extends AppCompatActivity {
             bmobUserBmobQuery.findObjects(new FindListener<User>() {
                 @Override
                 public void done(List<User> list, BmobException e) {
-                    dataUtil.newGroupAddUser(group, list.get(0), level);
+                    if(list == null && list.size() == 0){
+                        Toast.makeText(RelationshipActivity.this, "没有找到人", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else {
+                        dataUtil.newGroupAddUser(group, list.get(0), level);
+                        dialog.dismiss();
+                        RelationshipActivity.this.finish();
+                    }
+
                 }
             });
-
-
         });
+        dialog.show();
     }
 
     @Override

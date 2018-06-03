@@ -1,11 +1,10 @@
 package com.example.xyx.link.Bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 
-public class UserRelation extends BmobObject{
+public class UserRelation extends BmobObject {
 
     public Group getGroup() {
         return mGroup;

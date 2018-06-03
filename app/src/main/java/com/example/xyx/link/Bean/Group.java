@@ -1,10 +1,8 @@
 package com.example.xyx.link.Bean;
 
-import java.util.List;
-
 import cn.bmob.v3.BmobObject;
 
-public class Group extends BmobObject{
+public class Group extends BmobObject {
 
     //private List<UserRelation> mUserRelations;
 
