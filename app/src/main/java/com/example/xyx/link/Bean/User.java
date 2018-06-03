@@ -23,6 +23,13 @@ public class User extends BmobUser {
 
     private int age;
 
+    public User() {
+        this.name = "username";
+        this.weChat = "wechat";
+        this.qq = "123456";
+        this.phone = "15927157339";
+    }
+
     public String getName() {
         return name;
     }

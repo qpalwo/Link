@@ -40,16 +40,10 @@ public class MainActivity extends AppCompatActivity {
     TextView userName;
     @BindView(R.id.title_toolbar)
     TextView titleToolbar;
-    @BindView(R.id.phone_image)
-    ImageView phoneImage;
     @BindView(R.id.phone_number)
     TextView phoneNumber;
-    @BindView(R.id.qq_image)
-    ImageView qqImage;
     @BindView(R.id.qq_number)
     TextView qqNumber;
-    @BindView(R.id.wechat_image)
-    ImageView wechatImage;
     @BindView(R.id.wechat_number)
     TextView wechatNumber;
     @BindView(R.id.setting_image)
@@ -89,6 +83,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setUserInfo(){
+        User user = BmobUser.getCurrentUser(User.class);
+        String name = user.getName();
+        String phone = user.getPhone();
+        String qq = user.getQq();
+        String wechat = user.getWeChat();
+        if(name != null && !name.isEmpty()){
+            userName.setText(name);
+        }
+        if(phone!= null && !phone.isEmpty()){
+            phoneNumber.setText(phone);
+        }
+        if(qq != null && !qq.isEmpty()){
+            qqNumber.setText(qq);
+        }
+        if(wechat != null && !wechat.isEmpty()){
+            wechatNumber.setText(wechat);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -101,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             initData();
             initView();
+            setUserInfo();
         }
     }
 
@@ -157,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                                         adapter.notifyDataSetChanged();
                                     }
                                 }
-
                                 @Override
                                 public void onFu(String msg) {
                                 }
