@@ -46,6 +46,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
             @Override
             public void onSuccess(DataBean data) {
                 mDataBean = data;
+                notifyDataSetChanged();
             }
             @Override
             public void onFu(String msg) {
