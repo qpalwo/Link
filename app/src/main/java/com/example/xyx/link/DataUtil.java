@@ -183,6 +183,7 @@ public class DataUtil {
         relation.setUserAttr(attributes);
         relations.add(relation);
         newGroup.setName(name);
+        setUserRelations(newGroup, relation);
         newGroup.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
@@ -194,7 +195,9 @@ public class DataUtil {
                 user.update(BmobUser.getCurrentUser().getObjectId(), new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
-                        setUserRelations(newGroup, relation);
+                        if(e == null){
+                            setUserRelations(newGroup, relation);
+                        }
                         Log.d(TAG, "done: " + e.getMessage());
                     }
                 });

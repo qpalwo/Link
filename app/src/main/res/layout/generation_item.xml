@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/detail_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
                         android:src="@mipmap/phone" />
 
                     <TextView
-                        android:id="@+id/phone_number"
+                        android:id="@+id/phone_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -85,7 +86,7 @@
                         android:src="@mipmap/qq" />
 
                     <TextView
-                        android:id="@+id/qq_number"
+                        android:id="@+id/qq_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -110,7 +111,7 @@
                         android:src="@mipmap/wechat" />
 
                     <TextView
-                        android:id="@+id/wechat_number"
+                        android:id="@+id/wechat_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"

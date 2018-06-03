@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Bmob.initialize(this, "e4bdab8ef7e032628a681cf114e5f9fa");
 
         ButterKnife.bind(this);
-        getWindow().setEnterTransition(new Fade().setDuration(2000));
-        getWindow().setExitTransition(new Fade().setDuration(2000));
+        /*getWindow().setEnterTransition(new Fade().setDuration(2000));
+        getWindow().setExitTransition(new Fade().setDuration(2000));*/
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -150,6 +150,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                     String name = nameEdit.getText().toString();
                     dataUtil.newGroup(name,name);
+                    dataUtil.getGroup(new CallBack<List<Group>>() {
+                        @Override
+                        public void onSuccess(List<Group> data) {
+                            groupList = data;
+                            if (adapter != null){
+                                adapter.setGroupList(data);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                        @Override
+                        public void onFu(String msg) {
+                        }
+                    });
                     dialog.dismiss();
                 });
                 dialog.show();

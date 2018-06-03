@@ -2,6 +2,7 @@ package com.example.xyx.link;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -100,6 +101,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                         @Override
                         public void onFu(String msg) { }
                     });
+                    holder.addrelation.setOnClickListener(a -> {
+                        //todo:弹框框......
+                        //todo:等你来.....
+                        //todo:这里有position,写个relationname
+                        mDataUtil.newRelation();
+                    });
                 }
             }
         });
@@ -107,9 +114,6 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
-        holder.addrelation.setOnClickListener(v -> {
-            //todo:添加关系
-        });
     }
 
     @Override
@@ -133,6 +137,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
             point = itemView.findViewById(R.id.generation_point);
             mRecyclerView = itemView.findViewById(R.id.generation_list);
             detailInfo = itemView.findViewById(R.id.detail_info);
+            weChat = itemView.findViewById(R.id.wechat_info);
+            qq = itemView.findViewById(R.id.qq_info);
+            phonenumber = itemView.findViewById(R.id.phone_info);
             relations = itemView.findViewById(R.id.detail_relation);
             mCardView = itemView.findViewById(R.id.generation_card);
             addrelation = itemView.findViewById(R.id.add_relation);
